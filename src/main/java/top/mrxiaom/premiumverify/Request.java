@@ -99,9 +99,11 @@ public class Request {
             t(player, "验证时出现错误，请联系服务器管理员查看日志");
             plugin.warn(e);
         }
+        plugin.players.remove(player.getName());
     }
 
     public void cancel() {
+        plugin.players.remove(player.getName());
         thread.interrupt();
     }
 }
