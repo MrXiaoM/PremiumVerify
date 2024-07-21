@@ -8,8 +8,8 @@ import java.io.IOException;
 public class PlayersData {
     File file;
     YamlConfiguration config;
-    PremiumVerify plugin;
-    public PlayersData(PremiumVerify plugin) {
+    Main plugin;
+    public PlayersData(Main plugin) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), "data.yml");
     }

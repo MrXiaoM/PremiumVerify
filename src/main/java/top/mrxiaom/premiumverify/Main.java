@@ -21,10 +21,10 @@ import java.util.TreeMap;
 
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
-public class PremiumVerify extends JavaPlugin implements Listener {
-    private static PremiumVerify instance;
+public class Main extends JavaPlugin implements Listener {
+    private static Main instance;
 
-    public static PremiumVerify getInstance() {
+    public static Main getInstance() {
         return instance;
     }
     protected Map<String, VerifyRequest> players = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);

@@ -2,7 +2,7 @@ package top.mrxiaom.premiumverify.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import top.mrxiaom.premiumverify.PremiumVerify;
+import top.mrxiaom.premiumverify.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class Util {
                 long delay = parseLong(removePrefix(s, "[delay]").trim()).orElse(0L);
                 if (delay > 0 && index < commands.size()) {
                     Bukkit.getScheduler().runTaskLater(
-                            PremiumVerify.getInstance(),
+                            Main.getInstance(),
                             () -> runCommands(player, commands, index),
                             delay
                     );
