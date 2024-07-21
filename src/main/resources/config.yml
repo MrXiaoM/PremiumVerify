@@ -12,6 +12,9 @@ fail-times-limit: 3
 # 验证请求超时时间 (秒)
 timeout: 300
 
+# 拥有这个权限的玩家将同样被视为已通过验证
+already-verified-permission: 'minecraft.premium'
+
 # 正版验证奖励
 # [console] 控制台命令
 # [player] 玩家命令

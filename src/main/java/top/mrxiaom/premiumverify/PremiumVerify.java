@@ -50,6 +50,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     protected int verifyTimesLimit;
     protected int failTimesLimit;
     protected int timeout;
+    protected String alreadyVerifiedPermission;
     @Override
     public void onEnable() {
         instance = this;
@@ -77,6 +78,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
         verifyTimesLimit = config.getInt("verify-times-limit", 1);
         failTimesLimit = config.getInt("fail-times-limit", 3);
         timeout = config.getInt("timeout", 300);
+        alreadyVerifiedPermission = config.getString("already-verified-permission");
 
         msgHelp = config.getStringList("messages.help");
         msgHelpOp = config.getStringList("messages.help-op");
@@ -111,8 +113,10 @@ public class PremiumVerify extends JavaPlugin implements Listener {
                     return t(sender, msgErrOnlyPlayer);
                 }
                 Player player = (Player) sender;
-                if (data.getPlayerFailTimes(player.getName()) >= failTimesLimit) {
-                    return t(player, msgErrFailLimit);
+                if (!sender.hasPermission("premiumverify.request.bypass-fail-limit")) {
+                    if (data.getPlayerFailTimes(player.getName()) >= failTimesLimit) {
+                        return t(player, msgErrFailLimit);
+                    }
                 }
                 if (players.containsKey(player.getName())) {
                     return t(player, msgErrAlreadyInVerify);
