@@ -1,5 +1,10 @@
 package top.mrxiaom.premiumverify;
 
+import com.google.common.collect.Lists;
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,9 +20,7 @@ import top.mrxiaom.premiumverify.utils.Util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
@@ -56,10 +59,22 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         instance = this;
         hasPAPI = PAPI.init();
+        if (hasPAPI) {
+            Placeholders papi = new Placeholders(this);
+            LocalExpansionManager manager = PlaceholderAPIPlugin.getInstance().getLocalExpansionManager();
+            Collection<PlaceholderExpansion> expansions = manager.getExpansions();
+            for (PlaceholderExpansion expansion : new ArrayList<>(expansions)) {
+                if (expansion.getIdentifier().equals(papi.getIdentifier())) {
+                    expansion.unregister();
+                }
+            }
+            papi.register();
+        }
         data = new PlayersData(this);
         reloadConfig();
 
         Bukkit.getPluginManager().registerEvents(this, this);
+        getLogger().info("PremiumVerify 插件已启用");
     }
 
     @Override
