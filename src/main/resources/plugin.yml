@@ -1,0 +1,10 @@
+name: PremiumVerify
+version: '${version}'
+main: top.mrxiaom.premiumverify.PremiumVerify
+api-version: 1.13
+softdepend:
+  - PlaceholderAPI
+authors: [ MrXiaoM ]
+commands:
+  token:
+    description: awa

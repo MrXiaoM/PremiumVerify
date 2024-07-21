@@ -1,0 +1,16 @@
+
+# 每个正版账号最多能验证多少次
+# 按正版账号 UUID 来识别
+verify-times-limit: 1
+
+# 正版验证奖励
+# [console] 控制台命令
+# [player] 玩家命令
+# [message] 消息
+# [broadcast] 全服公告
+# [broadcast-bc] 全服公告 (通过BC广播，安装了该插件的子服都会公告)
+# [delay] 延时执行(单位为tick)，如 [delay] 20 会延时1秒
+# 均支持使用 PAPI 变量
+rewards:
+  - '[message]&7[&b正版验证&7] &a你已完成正版验证!'
+  - '[console]money give %player_name% 100'
