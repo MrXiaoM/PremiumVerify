@@ -19,6 +19,13 @@ rewards:
   - '[console]money give %player_name% 100'
 
 messages:
+  help:
+    - '&7[&b正版验证&7] &e正版验证 帮助'
+    - '&7[&b正版验证&7] &f/pv request &e请求正版验证，最多可尝试3次'
+  help-op:
+    - '&7[&b正版验证&7] &e正版验证 帮助'
+    - '&7[&b正版验证&7] &f/pv request &e请求正版验证，最多可尝试3次'
+    - '&7[&b正版验证&7] &f/pv reload &e重载配置文件'
   verify-start:
     - '&7[&b正版验证&7] &e正在发起验证请求，请稍等…'
   verify:

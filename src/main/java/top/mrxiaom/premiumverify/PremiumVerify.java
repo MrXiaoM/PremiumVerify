@@ -27,6 +27,8 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     }
     protected Map<String, VerifyRequest> players = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     boolean hasPAPI;
+    protected List<String> msgHelp;
+    protected List<String> msgHelpOp;
     protected List<String> msgVerifyStart;
     protected List<String> msgVerify;
     protected String msgLinkText;
@@ -41,10 +43,22 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     }
 
     @Override
+    public void onDisable() {
+        for (VerifyRequest request : players.values()) {
+            request.cancel();
+        }
+        players.clear();
+    }
+
+    @Override
     public void reloadConfig() {
         super.saveDefaultConfig();
         super.reloadConfig();
+
         FileConfiguration config = getConfig();
+
+        msgHelp = config.getStringList("messages.help");
+        msgHelpOp = config.getStringList("messages.help-op");
         msgVerifyStart = config.getStringList("messages.verify-start");
         msgVerify = config.getStringList("messages.verify");
         msgLinkText = config.getString("messages.link-text");
@@ -59,7 +73,11 @@ public class PremiumVerify extends JavaPlugin implements Listener {
                 return t(sender, "&a配置文件已重载");
             }
         }
-        return true;
+        if (sender.isOp()) {
+            return t(sender, msgHelpOp);
+        } else {
+            return t(sender, msgHelp);
+        }
     }
 
     @EventHandler
