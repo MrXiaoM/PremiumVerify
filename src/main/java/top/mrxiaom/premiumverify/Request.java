@@ -96,6 +96,7 @@ public class Request {
                 plugin.players.remove(player.getName());
                 return;
             }
+            plugin.players.remove(player.getName());
             plugin.data.markPlayerVerified(name, uuid);
             Util.runCommands(player, plugin.rewards);
         } catch (Throwable e) {
@@ -104,7 +105,6 @@ public class Request {
             plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             plugin.warn(e);
         }
-        plugin.players.remove(player.getName());
     }
 
     public void cancel() {
