@@ -6,5 +6,6 @@ softdepend:
   - PlaceholderAPI
 authors: [ MrXiaoM ]
 commands:
-  token:
-    description: awa
+  premiumverify:
+    description: Plugin Main Command
+    aliases: [verify, pv]

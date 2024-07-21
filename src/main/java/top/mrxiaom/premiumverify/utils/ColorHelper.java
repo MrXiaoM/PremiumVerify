@@ -1,7 +1,10 @@
 package top.mrxiaom.premiumverify.utils;
 
 import com.google.common.collect.Lists;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,6 +16,19 @@ public class ColorHelper {
     private static final Pattern startWithColor = Pattern.compile("^(&[LMNKOlmnko])+");
     private static final Pattern gradientPattern = Pattern.compile("\\{(#[ABCDEFabcdef0123456789]{6}):(#[ABCDEFabcdef0123456789]{6}):(.*?)}");
     private static final Pattern hexPattern = Pattern.compile("&(#[ABCDEFabcdef0123456789]{6})");
+    public static TextComponent bungee(String s) {
+        return new TextComponent(TextComponent.fromLegacy(parseColor(s)));
+    }
+    public static boolean t(CommandSender sender, List<String> s) {
+        sender.sendMessage(String.join("\n", s));
+        return true;
+    }
+    public static boolean t(CommandSender sender, String... s) {
+        if (s.length == 0) return true;
+        else if (s.length == 1) sender.sendMessage(parseColor(s[0]));
+        else sender.sendMessage(String.join("\n", parseColor(Lists.newArrayList(s))));
+        return true;
+    }
 
     public static List<String> parseColor(List<String> s) {
         return Lists.newArrayList(parseColor(String.join("\n", s)).split("\n"));

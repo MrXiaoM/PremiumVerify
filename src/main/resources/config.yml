@@ -3,6 +3,9 @@
 # 按正版账号 UUID 来识别
 verify-times-limit: 1
 
+# 每个玩家最多能尝试验证多少次
+fail-times-limit: 3
+
 # 正版验证奖励
 # [console] 控制台命令
 # [player] 玩家命令
@@ -14,3 +17,18 @@ verify-times-limit: 1
 rewards:
   - '[message]&7[&b正版验证&7] &a你已完成正版验证!'
   - '[console]money give %player_name% 100'
+
+messages:
+  verify-start:
+    - '&7[&b正版验证&7] &e正在发起验证请求，请稍等…'
+  verify:
+    - '&f'
+    - '&f'
+    - '&f  请打开聊天栏，点击 %link% &f进行验证'
+    - '&f'
+    - '&f  验证期间&e不要离开服务器&f，完成后你将获得奖励'
+    - '&f'
+  link-text: '&7[&n&l验证网址&7]'
+  link-hover:
+    - '&e点击打开验证网址'
+    - '&7如果需要输入代码，请使用 &f%code%'
