@@ -11,6 +11,8 @@ import net.raphimc.minecraftauth.step.java.StepMCProfile;
 import net.raphimc.minecraftauth.step.java.session.StepFullJavaSession;
 import net.raphimc.minecraftauth.step.msa.StepMsaDeviceCode;
 import net.raphimc.minecraftauth.util.MicrosoftConstants;
+import net.raphimc.minecraftauth.util.logging.ILogger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import top.mrxiaom.premiumverify.utils.ColorHelper;
 import top.mrxiaom.premiumverify.utils.Util;
@@ -20,9 +22,18 @@ import java.util.regex.Pattern;
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
 public class Request {
+    public static class NOPLogger implements ILogger {
+        public static NOPLogger INSTANCE = new NOPLogger();
+        private NOPLogger() {}
+        @Override
+        public void info(String s) {}
+        @Override
+        public void warn(String s) {}
+        @Override
+        public void error(String s) {}
+    }
     final Main plugin;
     final Player player;
-    final HttpClient httpClient = MinecraftAuth.createHttpClient();
     final Thread thread;
     private Request(Main plugin, Player player) {
         this.thread = new Thread(this::run);
@@ -38,6 +49,7 @@ public class Request {
     private void run() {
         t(player, plugin.msgVerifyStart);
         try {
+            HttpClient httpClient = MinecraftAuth.createHttpClient();
             StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
                     .withTimeout(plugin.timeout)
                     .withClientId(MicrosoftConstants.JAVA_TITLE_ID).withScope(MicrosoftConstants.SCOPE_TITLE_AUTH)
@@ -45,7 +57,7 @@ public class Request {
                     .withDeviceToken("Win32")
                     .sisuTitleAuthentication(MicrosoftConstants.JAVA_XSTS_RELYING_PARTY)
                     .buildMinecraftJavaProfileStep(true)
-                    .getFromInput(httpClient, new StepMsaDeviceCode.MsaDeviceCodeCallback(msaDeviceCode -> {
+                    .getFromInput(NOPLogger.INSTANCE, httpClient, new StepMsaDeviceCode.MsaDeviceCodeCallback(msaDeviceCode -> {
                 String link = msaDeviceCode.getDirectVerificationUri();
                 String code = msaDeviceCode.getUserCode();
                 Pattern pattern = Pattern.compile("(%link%)");
@@ -75,11 +87,6 @@ public class Request {
                 }
             }));
             plugin.players.remove(player.getName());
-            if (session.isExpiredOrOutdated()) {
-                t(player, plugin.msgResultExpired);
-                plugin.players.remove(player.getName());
-                return;
-            }
             StepMCProfile.MCProfile profile = session.getMcProfile();
             String uuid = profile.getId().toString();
             String name = profile.getName();
@@ -99,9 +106,16 @@ public class Request {
             }
             plugin.players.remove(player.getName());
             plugin.data.markPlayerVerified(name, uuid);
-            Util.runCommands(player, plugin.rewards);
+            Bukkit.getScheduler().runTask(plugin, () -> Util.runCommands(player, plugin.rewards));
         } catch (Throwable e) {
             plugin.players.remove(player.getName());
+            if (e instanceof java.util.concurrent.TimeoutException) {
+                t(player, plugin.msgResultExpired);
+                return;
+            }
+            if (e instanceof java.lang.InterruptedException) {
+                return;
+            }
             t(player, plugin.msgResultCallOP);
             plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             plugin.warn(e);
