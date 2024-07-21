@@ -36,7 +36,7 @@ public class Request {
     }
 
     private void run() {
-        t(player, plugin.msgVerify);
+        t(player, plugin.msgVerifyStart);
         try {
             StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
                     .withTimeout(plugin.timeout)
