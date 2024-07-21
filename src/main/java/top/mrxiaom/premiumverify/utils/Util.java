@@ -37,14 +37,6 @@ public class Util {
                 }
                 continue;
             }
-            if (s.startsWith("[broadcast-bc]")) {
-                String msg = removePrefix(s, "[broadcast-bc]").trim();
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendMessage(msg);
-                }
-                // TODO: 广播到 BungeeCord
-                continue;
-            }
             if (s.startsWith("[delay]")) {
                 int index = i + 1;
                 long delay = parseLong(removePrefix(s, "[delay]").trim()).orElse(0L);

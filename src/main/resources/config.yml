@@ -13,14 +13,13 @@ fail-times-limit: 3
 timeout: 300
 
 # 拥有这个权限的玩家将同样被视为已通过验证
-already-verified-permission: 'minecraft.premium'
+already-verified-permission: 'minecraft.account.premium'
 
 # 正版验证奖励
 # [console] 控制台命令
 # [player] 玩家命令
 # [message] 消息
 # [broadcast] 全服公告
-# [broadcast-bc] 全服公告 (通过BC广播，安装了该插件的子服都会公告)
 # [delay] 延时执行(单位为tick)，如 [delay] 20 会延时1秒
 # 均支持使用 PAPI 变量
 rewards:
