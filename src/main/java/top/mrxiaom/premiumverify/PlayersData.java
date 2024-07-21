@@ -42,6 +42,10 @@ public class PlayersData {
         save();
     }
 
+    public boolean hasPlayer(String name) {
+        return config.contains("offline-players." + name.toLowerCase());
+    }
+
     public void reload() {
         config = YamlConfiguration.loadConfiguration(file);
     }

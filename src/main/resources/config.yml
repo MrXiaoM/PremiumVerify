@@ -4,6 +4,7 @@
 verify-times-limit: 1
 
 # 每个玩家最多能尝试验证多少次
+# 拥有 premiumverify.request.bypass-fail-limit 权限的玩家可无视失败次数限制
 # 验证超时、网络问题 等不算做验证失败
 # 正版账号超过最多验证次数、用户名不匹配 算作验证失败
 fail-times-limit: 3
@@ -30,9 +31,21 @@ messages:
   help-op:
     - '&7[&b正版验证&7] &e正版验证 帮助'
     - '&7[&b正版验证&7] &f/pv request &e请求正版验证，最多可尝试3次'
+    - '&7[&b正版验证&7] &f/pv fail <玩家> <次数> &e设置玩家的失败次数'
     - '&7[&b正版验证&7] &f/pv reload &e重载配置文件'
   commands:
     reload: '&a配置文件已重载.'
+    fail: '&a已设置 &e%player% &a的验证失败次数为 &e%times%.'
+  error:
+    only-player: '&7[&b正版验证&7] &e该命令仅能由玩家执行.'
+    no-player: '&7[&b正版验证&7] &e无法找到该玩家.'
+    no-integer: '&7[&b正版验证&7] &e你应该输入一个大于或等于0的整数.'
+    fail-limit:
+      - '&7[&b正版验证&7] &e你的账户已达到允许失败次数上限.'
+    already-in-verify:
+      - '&7[&b正版验证&7] &e你已经在验证中了.'
+    already-verified:
+      - '&7[&b正版验证&7] &a你已经进行过正版验证了.'
   verify-start:
     - '&7[&b正版验证&7] &e正在发起验证请求，请稍等…'
   verify:
