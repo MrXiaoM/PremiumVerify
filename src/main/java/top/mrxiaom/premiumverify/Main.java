@@ -48,6 +48,7 @@ public class Main extends JavaPlugin implements Listener {
     protected List<String> msgResultExpired;
     protected List<String> msgResultNotMatch;
     protected List<String> msgResultLimit;
+    protected List<String> msgResultCallOP;
     protected int verifyTimesLimit;
     protected int failTimesLimit;
     protected int timeout;
@@ -112,6 +113,7 @@ public class Main extends JavaPlugin implements Listener {
         msgResultExpired = config.getStringList("messages.result-expired");
         msgResultNotMatch = config.getStringList("messages.result-not-match");
         msgResultLimit = config.getStringList("messages.result-limit");
+        msgResultCallOP = config.getStringList("messages.result-call-op");
 
         data.reload();
     }

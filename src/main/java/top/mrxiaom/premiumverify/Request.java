@@ -96,7 +96,8 @@ public class Request {
             Util.runCommands(player, plugin.rewards);
         } catch (Throwable e) {
             plugin.players.remove(player.getName());
-            t(player, "验证时出现错误，请联系服务器管理员查看日志");
+            t(player, plugin.msgResultCallOP);
+            plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             plugin.warn(e);
         }
         plugin.players.remove(player.getName());
