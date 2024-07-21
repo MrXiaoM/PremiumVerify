@@ -76,6 +76,7 @@ public class Request {
             plugin.players.remove(player.getName());
             if (session.isExpiredOrOutdated()) {
                 t(player, plugin.msgResultExpired);
+                plugin.players.remove(player.getName());
                 return;
             }
             StepMCProfile.MCProfile profile = session.getMcProfile();
@@ -86,11 +87,14 @@ public class Request {
                 for (String s : plugin.msgResultNotMatch) {
                     t(player, s.replace("%name%", name).replace("%player%", player.getName()));
                 }
+                plugin.players.remove(player.getName());
                 return;
             }
             int verifyTimes = plugin.data.getPlayerVerifyTimes(uuid);
             if (verifyTimes > plugin.verifyTimesLimit) {
                 plugin.data.markPlayerFail(player.getName());
+                plugin.players.remove(player.getName());
+                return;
             }
             plugin.data.markPlayerVerified(name, uuid);
             Util.runCommands(player, plugin.rewards);
