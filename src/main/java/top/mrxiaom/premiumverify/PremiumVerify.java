@@ -35,6 +35,8 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     protected String msgLinkText;
     protected List<String> msgLinkHover;
     protected List<String> msgResultExpired;
+    protected List<String> msgResultNotMatch;
+    protected List<String> msgResultLimit;
     protected int verifyTimesLimit;
     protected int failTimesLimit;
     protected int timeout;
@@ -73,6 +75,10 @@ public class PremiumVerify extends JavaPlugin implements Listener {
         msgLinkText = config.getString("messages.link-text");
         msgLinkHover = config.getStringList("messages.link-hover");
         msgResultExpired = config.getStringList("messages.result-expired");
+        msgResultNotMatch = config.getStringList("messages.result-not-match");
+        msgResultLimit = config.getStringList("messages.result-limit");
+
+        data.reload();
     }
 
     @Override

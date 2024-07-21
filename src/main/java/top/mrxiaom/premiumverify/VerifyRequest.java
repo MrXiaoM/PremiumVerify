@@ -75,7 +75,19 @@ public class VerifyRequest {
                 return;
             }
             StepMCProfile.MCProfile profile = session.getMcProfile();
-
+            String uuid = profile.getId().toString();
+            String name = profile.getName();
+            if (!player.getName().equals("name")) {
+                plugin.data.markPlayerFail(player.getName());
+                for (String s : plugin.msgResultNotMatch) {
+                    t(player, s.replace("%name%", name).replace("%player%", player.getName()));
+                }
+                return;
+            }
+            int verifyTimes = plugin.data.getPlayerVerifyTimes(uuid);
+            if (verifyTimes > plugin.verifyTimesLimit) {
+                plugin.data.markPlayerFail(player.getName());
+            }
             // TODO: 验证玩家
         } catch (Throwable e) {
             plugin.players.remove(player.getName());
