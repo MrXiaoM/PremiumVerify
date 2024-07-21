@@ -1,7 +1,5 @@
 package top.mrxiaom.premiumverify;
 
-import com.google.common.collect.Lists;
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
@@ -30,7 +28,7 @@ public class Main extends JavaPlugin implements Listener {
     public static Main getInstance() {
         return instance;
     }
-    protected Map<String, VerifyRequest> players = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    protected Map<String, Request> players = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     protected PlayersData data;
     boolean hasPAPI;
     protected List<String> msgHelp;
@@ -79,7 +77,7 @@ public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        for (VerifyRequest request : players.values()) {
+        for (Request request : players.values()) {
             request.cancel();
         }
         players.clear();
@@ -141,7 +139,7 @@ public class Main extends JavaPlugin implements Listener {
                 if (data.isPlayerVerified(player.getName()) || (!alreadyVerifiedPermission.isEmpty() && player.hasPermission(alreadyVerifiedPermission))) {
                     return t(player, msgErrAlreadyVerified);
                 }
-                players.put(player.getName(), new VerifyRequest(this, player));
+                players.put(player.getName(), Request.create(this, player));
                 return true;
             }
         }
@@ -167,7 +165,7 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
-        VerifyRequest request = players.remove(e.getPlayer().getName());
+        Request request = players.remove(e.getPlayer().getName());
         if (request != null) {
             request.cancel();
         }

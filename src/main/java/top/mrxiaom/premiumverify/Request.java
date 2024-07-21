@@ -18,16 +18,20 @@ import java.util.regex.Pattern;
 
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
-public class VerifyRequest {
+public class Request {
     final Main plugin;
     final Player player;
     final HttpClient httpClient = MinecraftAuth.createHttpClient();
     final Thread thread;
-    public VerifyRequest(Main plugin, Player player) {
+    private Request(Main plugin, Player player) {
         this.thread = new Thread(this::run);
         this.plugin = plugin;
         this.player = player;
         thread.start();
+    }
+
+    public static Request create(Main plugin, Player player) {
+        return new Request(plugin, player);
     }
 
     private void run() {
