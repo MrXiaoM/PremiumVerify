@@ -1,6 +1,7 @@
 package top.mrxiaom.premiumverify;
 
 import net.lenni0451.commons.httpclient.HttpClient;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -62,9 +63,9 @@ public class Request {
                         TextComponent text = ColorHelper.bungee(plugin.msgLinkText);
                         text.setHoverEvent(new HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
-                                new Text(ColorHelper.bungee(
-                                        String.join("\n", plugin.msgLinkHover).replace("%code%", code)
-                                ))
+                                new Text(new BaseComponent[] {
+                                        ColorHelper.bungee(String.join("\n", plugin.msgLinkHover).replace("%code%", code))
+                                })
                         ));
                         text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link));
                         component.addExtra(text);

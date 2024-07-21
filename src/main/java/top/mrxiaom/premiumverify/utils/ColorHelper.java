@@ -17,7 +17,7 @@ public class ColorHelper {
     private static final Pattern gradientPattern = Pattern.compile("\\{(#[ABCDEFabcdef0123456789]{6}):(#[ABCDEFabcdef0123456789]{6}):(.*?)}");
     private static final Pattern hexPattern = Pattern.compile("&(#[ABCDEFabcdef0123456789]{6})");
     public static TextComponent bungee(String s) {
-        return new TextComponent(TextComponent.fromLegacy(parseColor(s)));
+        return new TextComponent(TextComponent.fromLegacyText(parseColor(s)));
     }
     public static boolean t(CommandSender sender, List<String> s) {
         sender.sendMessage(String.join("\n", s));
