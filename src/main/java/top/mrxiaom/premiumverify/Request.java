@@ -108,6 +108,7 @@ public class Request {
             plugin.data.markPlayerVerified(name, uuid);
             Bukkit.getScheduler().runTask(plugin, () -> Util.runCommands(player, plugin.rewards));
         } catch (Throwable e) {
+            boolean withCause = true;
             plugin.players.remove(player.getName());
             if (e instanceof java.util.concurrent.TimeoutException) {
                 t(player, plugin.msgResultExpired);
@@ -118,7 +119,10 @@ public class Request {
             }
             t(player, plugin.msgResultCallOP);
             plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
-            plugin.warn(e);
+            if (e instanceof java.io.IOException) { // java 11: java.net.http.HttpConnectTimeoutException
+                withCause = false;
+            }
+            plugin.warn(e, withCause);
         }
     }
 

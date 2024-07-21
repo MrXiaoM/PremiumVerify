@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import top.mrxiaom.premiumverify.Main;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,13 @@ public class Util {
                 }
             }
         }
+    }
+
+    public static void printWithoutCause(Throwable t, PrintWriter s) {
+        s.println(t);
+        StackTraceElement[] trace = t.getStackTrace();
+        for (StackTraceElement traceElement : trace)
+            s.println("\tat " + traceElement);
     }
 
     public static String removePrefix(String s, String prefix) {

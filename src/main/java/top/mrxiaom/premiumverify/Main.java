@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.mrxiaom.premiumverify.utils.PAPI;
+import top.mrxiaom.premiumverify.utils.Util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -122,9 +123,13 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
     }
 
     public void warn(Throwable t) {
+        warn(t, true);
+    }
+    public void warn(Throwable t, boolean withCause) {
         StringWriter sw = new StringWriter();
         try (PrintWriter pw = new PrintWriter(sw)) {
-            t.printStackTrace(pw);
+            if (withCause) t.printStackTrace(pw);
+            else Util.printWithoutCause(t, pw);
         }
         getLogger().warning(sw.toString());
     }
