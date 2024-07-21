@@ -29,11 +29,17 @@ java {
 }
 tasks {
     shadowJar {
+        from("LICENSE")
         archiveClassifier.set("")
         mapOf(
             "org.intellij.lang.annotations" to "annotations.intellij",
             "org.jetbrains.annotations" to "annotations.jetbrains",
-            "net.raphimc.minecraftauth" to "auth"
+            "net.raphimc.minecraftauth" to "auth",
+            "com.google.errorprone.annotations" to "annotations.google",
+            "com.google.gson" to "gson",
+            "io.jsonwebtoken" to "jsonwebtoken",
+            "net.lenni0451.commons.httpclient" to "httpclient",
+            "org.slf4j" to "slf4j"
         ).forEach { (original, target) ->
             relocate(original, "top.mrxiaom.premiumverify.utils.$target")
         }
