@@ -33,6 +33,10 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     protected List<String> msgVerify;
     protected String msgLinkText;
     protected List<String> msgLinkHover;
+    protected List<String> msgResultExpired;
+    protected int verifyTimesLimit;
+    protected int failTimesLimit;
+    protected int timeout;
     @Override
     public void onEnable() {
         instance = this;
@@ -56,6 +60,9 @@ public class PremiumVerify extends JavaPlugin implements Listener {
         super.reloadConfig();
 
         FileConfiguration config = getConfig();
+        verifyTimesLimit = config.getInt("verify-times-limit", 1);
+        failTimesLimit = config.getInt("fail-times-limit", 3);
+        timeout = config.getInt("timeout", 300);
 
         msgHelp = config.getStringList("messages.help");
         msgHelpOp = config.getStringList("messages.help-op");
@@ -63,6 +70,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
         msgVerify = config.getStringList("messages.verify");
         msgLinkText = config.getString("messages.link-text");
         msgLinkHover = config.getStringList("messages.link-hover");
+        msgResultExpired = config.getStringList("messages.result-expired");
     }
 
     @Override

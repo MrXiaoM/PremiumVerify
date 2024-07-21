@@ -9,6 +9,7 @@ import net.raphimc.minecraftauth.MinecraftAuth;
 import net.raphimc.minecraftauth.step.java.StepMCProfile;
 import net.raphimc.minecraftauth.step.java.session.StepFullJavaSession;
 import net.raphimc.minecraftauth.step.msa.StepMsaDeviceCode;
+import net.raphimc.minecraftauth.util.MicrosoftConstants;
 import org.bukkit.entity.Player;
 import top.mrxiaom.premiumverify.utils.ColorHelper;
 import top.mrxiaom.premiumverify.utils.Util;
@@ -32,7 +33,14 @@ public class VerifyRequest {
     private void run() {
         t(player, plugin.msgVerify);
         try {
-            StepFullJavaSession.FullJavaSession session = MinecraftAuth.JAVA_DEVICE_CODE_LOGIN.getFromInput(httpClient, new StepMsaDeviceCode.MsaDeviceCodeCallback(msaDeviceCode -> {
+            StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
+                    .withTimeout(plugin.timeout)
+                    .withClientId(MicrosoftConstants.JAVA_TITLE_ID).withScope(MicrosoftConstants.SCOPE_TITLE_AUTH)
+                    .deviceCode()
+                    .withDeviceToken("Win32")
+                    .sisuTitleAuthentication(MicrosoftConstants.JAVA_XSTS_RELYING_PARTY)
+                    .buildMinecraftJavaProfileStep(true)
+                    .getFromInput(httpClient, new StepMsaDeviceCode.MsaDeviceCodeCallback(msaDeviceCode -> {
                 String link = msaDeviceCode.getDirectVerificationUri();
                 String code = msaDeviceCode.getUserCode();
                 Pattern pattern = Pattern.compile("(%link%)");
@@ -61,10 +69,15 @@ public class VerifyRequest {
                     player.spigot().sendMessage(component);
                 }
             }));
-            StepMCProfile.MCProfile profile = session.getMcProfile();
             plugin.players.remove(player.getName());
+            if (session.isExpiredOrOutdated()) {
+                t(player, plugin.msgResultExpired);
+                return;
+            }
+            StepMCProfile.MCProfile profile = session.getMcProfile();
+
             // TODO: 验证玩家
-        } catch (Exception e) {
+        } catch (Throwable e) {
             plugin.players.remove(player.getName());
             t(player, "验证时出现错误，请联系服务器管理员查看日志");
             plugin.warn(e);
