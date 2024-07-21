@@ -88,7 +88,8 @@ public class VerifyRequest {
             if (verifyTimes > plugin.verifyTimesLimit) {
                 plugin.data.markPlayerFail(player.getName());
             }
-            // TODO: 验证玩家
+            plugin.data.markPlayerVerified(name, uuid);
+            Util.runCommands(player, plugin.rewards);
         } catch (Throwable e) {
             plugin.players.remove(player.getName());
             t(player, "验证时出现错误，请联系服务器管理员查看日志");

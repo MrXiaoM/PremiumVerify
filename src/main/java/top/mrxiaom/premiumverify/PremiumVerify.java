@@ -51,6 +51,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     protected int failTimesLimit;
     protected int timeout;
     protected String alreadyVerifiedPermission;
+    protected List<String> rewards;
     @Override
     public void onEnable() {
         instance = this;
@@ -79,6 +80,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
         failTimesLimit = config.getInt("fail-times-limit", 3);
         timeout = config.getInt("timeout", 300);
         alreadyVerifiedPermission = config.getString("already-verified-permission");
+        rewards = config.getStringList("rewards");
 
         msgHelp = config.getStringList("messages.help");
         msgHelpOp = config.getStringList("messages.help-op");
