@@ -74,6 +74,7 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         data = new PlayersData(this);
         reloadConfig();
 
+        new Commands(this);
         Bukkit.getPluginManager().registerEvents(this, this);
         getLogger().info("PremiumVerify 插件已启用");
     }
@@ -118,69 +119,6 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         msgResultCallOP = config.getStringList("messages.result-call-op");
 
         data.reload();
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("premiumverify.reload")) {
-                reloadConfig();
-                return t(sender, msgCmdReload);
-            }
-            if (args[0].equalsIgnoreCase("request") && sender.hasPermission("premiumverify.request")) {
-                if (!(sender instanceof Player)) {
-                    return t(sender, msgErrOnlyPlayer);
-                }
-                Player player = (Player) sender;
-                if (!sender.hasPermission("premiumverify.request.bypass-fail-limit")) {
-                    if (data.getPlayerFailTimes(player.getName()) >= failTimesLimit) {
-                        return t(player, msgErrFailLimit);
-                    }
-                }
-                if (players.containsKey(player.getName())) {
-                    return t(player, msgErrAlreadyInVerify);
-                }
-                if (data.isPlayerVerified(player.getName()) || (!alreadyVerifiedPermission.isEmpty() && player.hasPermission(alreadyVerifiedPermission))) {
-                    return t(player, msgErrAlreadyVerified);
-                }
-                players.put(player.getName(), Request.create(this, player));
-                return true;
-            }
-        }
-        if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("fail") && sender.hasPermission("premiumverify.fail")) {
-                if (!data.hasPlayer(args[1])) {
-                    return t(sender, msgErrNoPlayer);
-                }
-                int times = Util.parseInt(args[2]).orElse(-1);
-                if (times < 0) {
-                    return t(sender, msgErrNoInteger);
-                }
-                data.markPlayerFail(args[1], times);
-                return t(sender, msgCmdFail.replace("%player%", args[1]).replace("%times%", String.valueOf(times)));
-            }
-        }
-        if (sender.isOp()) {
-            return t(sender, msgHelpOp);
-        } else {
-            return t(sender, msgHelp);
-        }
-    }
-
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        List<String> list = new ArrayList<>();
-        if (args.length == 1) {
-            String arg0 = args[0].toLowerCase();
-            if ("request".startsWith(arg0) && sender.hasPermission("premiumverify.request")) list.add("request");
-            if ("fail".startsWith(arg0) && sender.hasPermission("premiumverify.fail")) list.add("fail");
-            if ("reload".startsWith(arg0) && sender.hasPermission("premiumverify.reload")) list.add("reload");
-        }
-        if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("fail") && sender.hasPermission("premiumverify.fail")) return null;
-        }
-        return list;
     }
 
     @EventHandler
