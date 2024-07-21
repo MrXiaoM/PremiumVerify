@@ -6,6 +6,7 @@ import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.premiumverify.utils.PAPI;
 import top.mrxiaom.premiumverify.utils.Util;
 
@@ -22,7 +24,7 @@ import java.util.*;
 
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
-public class Main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin implements Listener, TabCompleter {
     private static Main instance;
 
     public static Main getInstance() {
@@ -163,6 +165,22 @@ public class Main extends JavaPlugin implements Listener {
         } else {
             return t(sender, msgHelp);
         }
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+        List<String> list = new ArrayList<>();
+        if (args.length == 1) {
+            String arg0 = args[0].toLowerCase();
+            if ("request".startsWith(arg0) && sender.hasPermission("premiumverify.request")) list.add("request");
+            if ("fail".startsWith(arg0) && sender.hasPermission("premiumverify.fail")) list.add("fail");
+            if ("reload".startsWith(arg0) && sender.hasPermission("premiumverify.reload")) list.add("reload");
+        }
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("fail") && sender.hasPermission("premiumverify.fail")) return null;
+        }
+        return list;
     }
 
     @EventHandler
