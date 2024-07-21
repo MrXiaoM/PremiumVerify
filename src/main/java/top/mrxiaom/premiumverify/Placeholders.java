@@ -29,7 +29,7 @@ public class Placeholders extends PlaceholderExpansion {
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
         if (params.equalsIgnoreCase("is_verified")) {
-            return bool(plugin.data.isPlayerVerified(player.getName()) || player.hasPermission(plugin.alreadyVerifiedPermission));
+            return bool(plugin.data.isPlayerVerified(player.getName()) || (!plugin.alreadyVerifiedPermission.isEmpty() && player.hasPermission(plugin.alreadyVerifiedPermission)));
         }
         if (params.equalsIgnoreCase("fail_times")) {
             return String.valueOf(plugin.data.getPlayerFailTimes(player.getName()));

@@ -14,6 +14,7 @@ timeout: 300
 
 # 拥有这个权限的玩家将同样被视为已通过验证
 # 验证后插件不会给予玩家这个权限，但拥有这个权限的玩家将被视为已验证，不能再申请验证
+# 将该选项设为空值关闭该功能
 already-verified-permission: 'minecraft.account.premium'
 
 # 正版验证奖励

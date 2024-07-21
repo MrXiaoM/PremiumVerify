@@ -138,7 +138,7 @@ public class Main extends JavaPlugin implements Listener {
                 if (players.containsKey(player.getName())) {
                     return t(player, msgErrAlreadyInVerify);
                 }
-                if (data.isPlayerVerified(player.getName()) || player.hasPermission(alreadyVerifiedPermission)) {
+                if (data.isPlayerVerified(player.getName()) || (!alreadyVerifiedPermission.isEmpty() && player.hasPermission(alreadyVerifiedPermission))) {
                     return t(player, msgErrAlreadyVerified);
                 }
                 players.put(player.getName(), new VerifyRequest(this, player));
