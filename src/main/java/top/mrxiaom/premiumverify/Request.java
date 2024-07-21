@@ -81,7 +81,7 @@ public class Request {
             StepMCProfile.MCProfile profile = session.getMcProfile();
             String uuid = profile.getId().toString();
             String name = profile.getName();
-            if (!player.getName().equals("name")) {
+            if (!player.getName().equals(name)) {
                 plugin.data.markPlayerFail(player.getName());
                 for (String s : plugin.msgResultNotMatch) {
                     t(player, s.replace("%name%", name).replace("%player%", player.getName()));
