@@ -20,7 +20,7 @@ public class ColorHelper {
         return new TextComponent(TextComponent.fromLegacyText(parseColor(s)));
     }
     public static boolean t(CommandSender sender, List<String> s) {
-        sender.sendMessage(String.join("\n", s));
+        sender.sendMessage(parseColor(String.join("\n", s)));
         return true;
     }
     public static boolean t(CommandSender sender, String... s) {
