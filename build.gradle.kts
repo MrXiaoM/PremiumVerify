@@ -39,7 +39,6 @@ tasks {
             "com.google.gson" to "gson",
             "io.jsonwebtoken" to "jsonwebtoken",
             "net.lenni0451.commons.httpclient" to "httpclient",
-            "org.slf4j" to "slf4j"
         ).forEach { (original, target) ->
             relocate(original, "top.mrxiaom.premiumverify.utils.$target")
         }

@@ -1,7 +1,6 @@
 package top.mrxiaom.premiumverify.utils;
 
 import com.google.common.collect.Lists;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

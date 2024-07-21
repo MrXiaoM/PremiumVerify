@@ -4,25 +4,17 @@ import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.premiumverify.utils.PAPI;
-import top.mrxiaom.premiumverify.utils.Util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.*;
-
-import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
 public class Main extends JavaPlugin implements Listener, TabCompleter {
     private static Main instance;
