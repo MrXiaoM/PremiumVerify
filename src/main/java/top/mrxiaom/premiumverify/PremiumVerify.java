@@ -29,6 +29,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     boolean hasPAPI;
     protected List<String> msgHelp;
     protected List<String> msgHelpOp;
+    protected String msgCmdReload;
     protected List<String> msgVerifyStart;
     protected List<String> msgVerify;
     protected String msgLinkText;
@@ -66,6 +67,7 @@ public class PremiumVerify extends JavaPlugin implements Listener {
 
         msgHelp = config.getStringList("messages.help");
         msgHelpOp = config.getStringList("messages.help-op");
+        msgCmdReload = config.getString("messages.commands.reload");
         msgVerifyStart = config.getStringList("messages.verify-start");
         msgVerify = config.getStringList("messages.verify");
         msgLinkText = config.getString("messages.link-text");
@@ -76,9 +78,9 @@ public class PremiumVerify extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("reload") && sender.isOp()) {
+            if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("premiumverify.reload")) {
                 reloadConfig();
-                return t(sender, "&a配置文件已重载");
+                return t(sender, msgCmdReload);
             }
         }
         if (sender.isOp()) {
