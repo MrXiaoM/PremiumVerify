@@ -1,5 +1,7 @@
 # PremiumVerify
 
+[![Stars](https://img.shields.io/github/stars/MrXiaoM/PremiumVerify?style=plastic)](https://github.com/MrXiaoM/PremiumVerify//stargazers) [![Downloads](https://img.shields.io/github/downloads/MrXiaoM/PremiumVerify/total)](https://github.com/MrXiaoM/PremiumVerify/releases)
+
 Minecraft 离线模式服务器正版验证插件。
 
 想要给予拥有 `Minecraft: Java Edition` 正版账号的玩家一些特殊奖励吗？使用本插件即可实现！
