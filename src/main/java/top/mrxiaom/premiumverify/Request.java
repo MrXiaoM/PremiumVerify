@@ -104,16 +104,18 @@ public class Request {
             plugin.players.remove(player.getName());
             if (e instanceof java.util.concurrent.TimeoutException) {
                 t(player, Lang.result_expired);
-                return;
+                return; // 不重要异常: 达到 timeout 时间未响应
             }
             if (e instanceof java.lang.InterruptedException) {
-                return;
+                return; // 不重要异常: thread.interrupt();
             }
-            t(player, Lang.result_call_op);
-            plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             if (e instanceof java.io.IOException) { // java 11: java.net.http.HttpConnectTimeoutException
-                withCause = false;
+                withCause = false; // 无需详细信息异常: 网络超时等问题
+                t(player, Lang.result_io_exception);
+            } else {
+                t(player, Lang.result_call_op);
             }
+            plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             plugin.warn(e, withCause);
         }
     }

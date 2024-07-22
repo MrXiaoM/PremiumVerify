@@ -48,6 +48,7 @@ public enum Lang {
     result_not_match("&7[&b正版验证&7] &e用户名不正确，该正版账户的用户名是&b %name%&e，而你是&b %player%&e.", true),
     result_limit("&7[&b正版验证&7] &e该正版账户已到达可验证次数上限.", true),
     result_call_op("&7[&b正版验证&7] &c验证时出现错误，请联系服务器管理员查看日志", true),
+    result_io_exception("&7[&b正版验证&7] &c验证时出现错误，可能是网络问题，请稍后重试", true),
 
     ;
     private static final Map<Lang, Object> current = new HashMap<>();
