@@ -19,6 +19,10 @@ dependencies {
 
     implementation("net.raphimc:MinecraftAuth:4.1.0")
     implementation("org.jetbrains:annotations:21.0.0")
+
+    testImplementation("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 val targetJavaVersion = 8
 java {
@@ -28,8 +32,11 @@ java {
     }
 }
 tasks {
-    shadowJar {
+    withType<Jar>().configureEach {
         from("LICENSE")
+        from("src/main/generated/resources/config.yml")
+    }
+    shadowJar {
         archiveClassifier.set("")
         mapOf(
             "org.intellij.lang.annotations" to "annotations.intellij",
@@ -52,11 +59,17 @@ tasks {
             options.release.set(targetJavaVersion)
         }
     }
+    test {
+        useJUnitPlatform()
+        onlyIf { true }
+    }
     processResources {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
         from(sourceSets.main.get().resources.srcDirs) {
             expand(mapOf("version" to version))
             include("plugin.yml")
         }
+        exclude("config.yml")
+        finalizedBy(test)
     }
 }
