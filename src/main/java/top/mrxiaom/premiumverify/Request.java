@@ -67,13 +67,12 @@ public class Request {
                     Util.split(pattern, s, it -> {
                         if (!it.isMatched) {
                             component.addExtra(ColorHelper.bungee(it.text));
-                            return null;
+                            return;
                         }
                         TextComponent text = ColorHelper.bungee(plugin.msgLinkText);
                         text.setHoverEvent(ColorHelper.hover(String.join("\n", plugin.msgLinkHover).replace("%code%", code)));
                         text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link));
                         component.addExtra(text);
-                        return null;
                     });
                     player.spigot().sendMessage(component);
                 }

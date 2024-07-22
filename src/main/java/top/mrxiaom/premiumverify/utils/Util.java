@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,6 +92,12 @@ public class Util {
         }
     }
 
+    public static void split(Pattern regex, String s, Consumer<RegexResult> action) {
+        split(regex, s, it -> {
+            action.accept(it);
+            return null;
+        });
+    }
     public static <T> List<T> split(Pattern regex, String s, Function<RegexResult, T> transform) {
         List<T> list = new ArrayList<>();
         int index = 0;
