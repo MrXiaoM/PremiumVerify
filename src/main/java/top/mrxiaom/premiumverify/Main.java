@@ -92,6 +92,8 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         alreadyVerifiedPermission = config.getString("already-verified-permission");
         rewards = config.getStringList("rewards");
 
+        Lang.reload(config.getConfigurationSection("messages"));
+
         msgHelp = config.getStringList("messages.help");
         msgHelpOp = config.getStringList("messages.help-op");
         msgCmdReload = config.getString("messages.commands.reload");
