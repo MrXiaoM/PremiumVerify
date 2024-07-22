@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import top.mrxiaom.premiumverify.Lang;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -23,6 +24,9 @@ public class ColorHelper {
     }
     public static TextComponent bungee(String s) {
         return new TextComponent(TextComponent.fromLegacyText(parseColor(s)));
+    }
+    public static boolean t(CommandSender sender, Lang lang) {
+        return lang.isList ? t(sender, lang.list()) : t(sender, lang.str());
     }
     public static boolean t(CommandSender sender, List<String> s) {
         sender.sendMessage(parseColor(String.join("\n", s)));

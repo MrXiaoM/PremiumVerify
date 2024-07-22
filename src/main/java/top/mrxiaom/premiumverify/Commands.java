@@ -27,23 +27,23 @@ public class Commands implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("premiumverify.reload")) {
                 plugin.reloadConfig();
-                return t(sender, plugin.msgCmdReload);
+                return t(sender, Lang.commands_reload);
             }
             if (args[0].equalsIgnoreCase("request") && sender.hasPermission("premiumverify.request")) {
                 if (!(sender instanceof Player)) {
-                    return t(sender, plugin.msgErrOnlyPlayer);
+                    return t(sender, Lang.error__only_player);
                 }
                 Player player = (Player) sender;
                 if (!sender.hasPermission("premiumverify.request.bypass-fail-limit")) {
                     if (plugin.data.getPlayerFailTimes(player.getName()) >= plugin.failTimesLimit) {
-                        return t(player, plugin.msgErrFailLimit);
+                        return t(player, Lang.error__fail_limit);
                     }
                 }
                 if (plugin.players.containsKey(player.getName())) {
-                    return t(player, plugin.msgErrAlreadyInVerify);
+                    return t(player, Lang.error__already_in_verify);
                 }
                 if (plugin.data.isPlayerVerified(player.getName()) || (!plugin.alreadyVerifiedPermission.isEmpty() && player.hasPermission(plugin.alreadyVerifiedPermission))) {
-                    return t(player, plugin.msgErrAlreadyVerified);
+                    return t(player, Lang.error__already_verified);
                 }
                 plugin.players.put(player.getName(), Request.create(plugin, player));
                 return true;
@@ -52,21 +52,17 @@ public class Commands implements CommandExecutor, TabCompleter {
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("fail") && sender.hasPermission("premiumverify.fail")) {
                 if (!plugin.data.hasPlayer(args[1])) {
-                    return t(sender, plugin.msgErrNoPlayer);
+                    return t(sender, Lang.error__no_player);
                 }
                 int times = Util.parseInt(args[2]).orElse(-1);
                 if (times < 0) {
-                    return t(sender, plugin.msgErrNoInteger);
+                    return t(sender, Lang.error__no_integer);
                 }
                 plugin.data.markPlayerFail(args[1], times);
-                return t(sender, plugin.msgCmdFail.replace("%player%", args[1]).replace("%times%", String.valueOf(times)));
+                return t(sender, Lang.commands_fail.str().replace("%player%", args[1]).replace("%times%", String.valueOf(times)));
             }
         }
-        if (sender.isOp()) {
-            return t(sender, plugin.msgHelpOp);
-        } else {
-            return t(sender, plugin.msgHelp);
-        }
+        return t(sender, sender.isOp() ? Lang.help_op : Lang.help);
     }
 
     @Nullable

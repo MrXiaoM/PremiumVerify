@@ -44,7 +44,7 @@ public class Request {
     }
 
     private void run() {
-        t(player, plugin.msgVerifyStart);
+        t(player, Lang.verify_start);
         try {
             HttpClient httpClient = MinecraftAuth.createHttpClient();
             StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
@@ -58,7 +58,7 @@ public class Request {
                 String link = msaDeviceCode.getDirectVerificationUri();
                 String code = msaDeviceCode.getUserCode();
                 Pattern pattern = Pattern.compile("(%link%)");
-                for (String s : plugin.msgVerify) {
+                for (String s : Lang.verify.list()) {
                     if (!s.contains("%link%")) {
                         t(player, s);
                         continue;
@@ -69,8 +69,8 @@ public class Request {
                             component.addExtra(ColorHelper.bungee(it.text));
                             return;
                         }
-                        TextComponent text = ColorHelper.bungee(plugin.msgLinkText);
-                        text.setHoverEvent(ColorHelper.hover(String.join("\n", plugin.msgLinkHover).replace("%code%", code)));
+                        TextComponent text = ColorHelper.bungee(Lang.link_text.str());
+                        text.setHoverEvent(ColorHelper.hover(Lang.link_hover.str().replace("%code%", code)));
                         text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link));
                         component.addExtra(text);
                     });
@@ -84,7 +84,7 @@ public class Request {
 
             if (!player.getName().equals(name)) {
                 plugin.data.markPlayerFail(player.getName());
-                for (String s : plugin.msgResultNotMatch) {
+                for (String s : Lang.result_not_match.list()) {
                     t(player, s.replace("%name%", name).replace("%player%", player.getName()));
                 }
                 plugin.players.remove(player.getName());
@@ -103,13 +103,13 @@ public class Request {
             boolean withCause = true;
             plugin.players.remove(player.getName());
             if (e instanceof java.util.concurrent.TimeoutException) {
-                t(player, plugin.msgResultExpired);
+                t(player, Lang.result_expired);
                 return;
             }
             if (e instanceof java.lang.InterruptedException) {
                 return;
             }
-            t(player, plugin.msgResultCallOP);
+            t(player, Lang.result_call_op);
             plugin.getLogger().warning("玩家 " + player.getName() + " 进行正版验证时出现一个异常");
             if (e instanceof java.io.IOException) { // java 11: java.net.http.HttpConnectTimeoutException
                 withCause = false;

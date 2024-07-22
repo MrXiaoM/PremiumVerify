@@ -26,24 +26,6 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
     protected Map<String, Request> players = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     protected PlayersData data;
     boolean hasPAPI;
-    protected List<String> msgHelp;
-    protected List<String> msgHelpOp;
-    protected String msgCmdReload;
-    protected String msgCmdFail;
-    protected String msgErrOnlyPlayer;
-    protected String msgErrNoPlayer;
-    protected String msgErrNoInteger;
-    protected List<String> msgErrFailLimit;
-    protected List<String> msgErrAlreadyInVerify;
-    protected List<String> msgErrAlreadyVerified;
-    protected List<String> msgVerifyStart;
-    protected List<String> msgVerify;
-    protected String msgLinkText;
-    protected List<String> msgLinkHover;
-    protected List<String> msgResultExpired;
-    protected List<String> msgResultNotMatch;
-    protected List<String> msgResultLimit;
-    protected List<String> msgResultCallOP;
     protected int verifyTimesLimit;
     protected int failTimesLimit;
     protected int timeout;
@@ -93,25 +75,6 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         rewards = config.getStringList("rewards");
 
         Lang.reload(config.getConfigurationSection("messages"));
-
-        msgHelp = config.getStringList("messages.help");
-        msgHelpOp = config.getStringList("messages.help-op");
-        msgCmdReload = config.getString("messages.commands.reload");
-        msgCmdFail = config.getString("messages.commands.fail");
-        msgErrOnlyPlayer = config.getString("messages.error.only-player");
-        msgErrNoPlayer = config.getString("messages.error.no-player");
-        msgErrNoInteger = config.getString("messages.error.no-integer");
-        msgErrFailLimit = config.getStringList("messages.error.fail-limit");
-        msgErrAlreadyInVerify = config.getStringList("messages.error.already-in-verify");
-        msgErrAlreadyVerified = config.getStringList("messages.error.already-verified");
-        msgVerifyStart = config.getStringList("messages.verify-start");
-        msgVerify = config.getStringList("messages.verify");
-        msgLinkText = config.getString("messages.link-text");
-        msgLinkHover = config.getStringList("messages.link-hover");
-        msgResultExpired = config.getStringList("messages.result-expired");
-        msgResultNotMatch = config.getStringList("messages.result-not-match");
-        msgResultLimit = config.getStringList("messages.result-limit");
-        msgResultCallOP = config.getStringList("messages.result-call-op");
 
         data.reload();
     }
