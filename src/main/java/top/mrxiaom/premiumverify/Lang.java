@@ -60,9 +60,15 @@ public enum Lang {
             if (lang.isList) {
                 if (config.isList(key)) {
                     current.put(lang, config.getStringList(key));
+                } else {
+                    current.put(lang, Lists.newArrayList(config.getString(key)));
                 }
             } else {
-                current.put(lang, config.getString(key));
+                if (config.isList(key)) {
+                    current.put(lang, String.join("\n", config.getStringList(key)));
+                } else {
+                    current.put(lang, config.getString(key));
+                }
             }
         }
     }
@@ -100,7 +106,7 @@ public enum Lang {
             List<String> list = (List<String>) current.getOrDefault(this, defaultValue);
             return Lists.newArrayList(list);
         } else {
-            return Lists.newArrayList((String) current.getOrDefault(this, defaultValue));
+            return Lists.newArrayList(current.getOrDefault(this, defaultValue).toString().split("\n"));
         }
     }
 }
