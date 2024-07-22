@@ -1,6 +1,8 @@
 package top.mrxiaom.premiumverify.utils;
 
 import com.google.common.collect.Lists;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -15,6 +17,10 @@ public class ColorHelper {
     private static final Pattern startWithColor = Pattern.compile("^(&[LMNKOlmnko])+");
     private static final Pattern gradientPattern = Pattern.compile("\\{(#[ABCDEFabcdef0123456789]{6}):(#[ABCDEFabcdef0123456789]{6}):(.*?)}");
     private static final Pattern hexPattern = Pattern.compile("&(#[ABCDEFabcdef0123456789]{6})");
+    @SuppressWarnings({"deprecation"})
+    public static HoverEvent hover(String s) {
+        return new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[] { bungee(s) });
+    }
     public static TextComponent bungee(String s) {
         return new TextComponent(TextComponent.fromLegacyText(parseColor(s)));
     }

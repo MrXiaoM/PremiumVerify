@@ -1,11 +1,8 @@
 package top.mrxiaom.premiumverify;
 
 import net.lenni0451.commons.httpclient.HttpClient;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 import net.raphimc.minecraftauth.MinecraftAuth;
 import net.raphimc.minecraftauth.step.java.StepMCProfile;
 import net.raphimc.minecraftauth.step.java.session.StepFullJavaSession;
@@ -73,12 +70,7 @@ public class Request {
                             return null;
                         }
                         TextComponent text = ColorHelper.bungee(plugin.msgLinkText);
-                        text.setHoverEvent(new HoverEvent(
-                                HoverEvent.Action.SHOW_TEXT,
-                                new Text(new BaseComponent[] {
-                                        ColorHelper.bungee(String.join("\n", plugin.msgLinkHover).replace("%code%", code))
-                                })
-                        ));
+                        text.setHoverEvent(ColorHelper.hover(String.join("\n", plugin.msgLinkHover).replace("%code%", code)));
                         text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link));
                         component.addExtra(text);
                         return null;
@@ -90,6 +82,7 @@ public class Request {
             StepMCProfile.MCProfile profile = session.getMcProfile();
             String uuid = profile.getId().toString();
             String name = profile.getName();
+
             if (!player.getName().equals(name)) {
                 plugin.data.markPlayerFail(player.getName());
                 for (String s : plugin.msgResultNotMatch) {
