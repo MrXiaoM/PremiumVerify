@@ -17,7 +17,7 @@ Minecraft 离线模式服务器正版验证插件。
 
 ## 命令
 
-根命令: `/permiumverify`, `/verify`, `/pv`  
+根命令: `/premiumverify`, `/verify`, `/pv`  
 其中 `<>` 包裹的为必选参数，`[]` 包裹的为可选参数。
 ```
 /pv request - 请求正版验证，最多可尝试3次(配置文件中可配置次数)
