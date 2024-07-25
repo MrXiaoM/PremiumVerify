@@ -37,11 +37,19 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         hasPAPI = PAPI.init();
         if (hasPAPI) {
             Placeholders papi = new Placeholders(this);
-            LocalExpansionManager manager = PlaceholderAPIPlugin.getInstance().getLocalExpansionManager();
-            Collection<PlaceholderExpansion> expansions = manager.getExpansions();
-            for (PlaceholderExpansion expansion : new ArrayList<>(expansions)) {
-                if (expansion.getIdentifier().equals(papi.getIdentifier())) {
-                    expansion.unregister();
+            try {
+                LocalExpansionManager manager = PlaceholderAPIPlugin.getInstance().getLocalExpansionManager();
+                Collection<PlaceholderExpansion> expansions = manager.getExpansions();
+                for (PlaceholderExpansion expansion : new ArrayList<>(expansions)) {
+                    if (expansion.getIdentifier().equals(papi.getIdentifier())) {
+                        expansion.unregister();
+                    }
+                }
+            } catch (NoSuchMethodError e) {
+                getLogger().warning("无法检查是否已重复安装变量扩展，如果您是通过热加载等方式启用本插件，变量扩展可能会出现一些问题。");
+                if (e.getMessage().contains("getLocalExpansionManager")) {
+                    String ver = PlaceholderAPIPlugin.getInstance().getDescription().getVersion();
+                    getLogger().warning("你的 PlaceholderAPI 太老了 (在2020年7月之前的版本)，建议更新到最新版 或 2.10.7 及以上版本，当前版本 (" + ver + ") 已不受支持。");
                 }
             }
             papi.register();
