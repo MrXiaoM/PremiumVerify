@@ -23,7 +23,7 @@ public class ColorHelper {
         return new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[] { bungee(s) });
     }
     public static TextComponent bungee(String s) {
-        return new TextComponent(TextComponent.fromLegacyText(parseColor(s)));
+        return new TextComponent(parseColor(s));
     }
     public static boolean t(CommandSender sender, Lang lang) {
         return lang.isList ? t(sender, lang.list()) : t(sender, lang.str());
