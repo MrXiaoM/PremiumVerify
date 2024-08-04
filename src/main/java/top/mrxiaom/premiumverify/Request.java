@@ -63,7 +63,7 @@ public class Request {
                         t(player, s);
                         continue;
                     }
-                    TextComponent component = new TextComponent();
+                    TextComponent component = new TextComponent("");
                     Util.split(pattern, s, it -> {
                         if (!it.isMatched) {
                             component.addExtra(ColorHelper.bungee(it.text));
