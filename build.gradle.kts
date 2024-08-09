@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://jitpack.io/")
     maven("https://oss.sonatype.org/content/groups/public/")
 }
 
@@ -17,7 +18,8 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.5")
 
-    implementation("net.raphimc:MinecraftAuth:4.1.0")
+    // https://github.com/mcio-dev/MinecraftAuthHeadless
+    implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch1")
     implementation("org.jetbrains:annotations:21.0.0")
 
     testImplementation("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
