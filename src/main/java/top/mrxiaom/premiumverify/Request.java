@@ -37,9 +37,15 @@ public class Request {
     private void run() {
         t(player, Lang.verify_start);
         try {
-            HttpClient httpClient = MinecraftAuth.createHttpClient();
+            HttpClient httpClient;
             ProxyHandler proxy = plugin.getProxy();
-            if (proxy != null) httpClient.setProxyHandler(proxy);
+            if (proxy != null) {
+                httpClient = MinecraftAuth.createHttpClient(10000);
+                httpClient.setProxyHandler(proxy);
+                httpClient.setIgnoreInvalidSSL(true);
+            } else {
+                httpClient = MinecraftAuth.createHttpClient();
+            }
             StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
                     .withTimeout(plugin.timeout)
                     .withClientId(MicrosoftConstants.JAVA_TITLE_ID).withScope(MicrosoftConstants.SCOPE_TITLE_AUTH)
