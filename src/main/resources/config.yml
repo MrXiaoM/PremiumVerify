@@ -1,3 +1,13 @@
+proxy:
+  # 代理类型: http, socks4, socks5
+  # 使用 none 或其它值时不使用代理
+  type: none
+  # 代理地址
+  host: '127.0.0.1'
+  port: 8081
+  # 代理账户验证，注释掉这两项为无账户验证
+  # username: '123456'
+  # password: '123456'
 
 # 每个正版账号最多能验证多少次
 # 按正版账号 UUID 来识别

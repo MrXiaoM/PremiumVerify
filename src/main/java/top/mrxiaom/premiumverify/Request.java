@@ -1,6 +1,8 @@
 package top.mrxiaom.premiumverify;
 
 import net.lenni0451.commons.httpclient.HttpClient;
+import net.lenni0451.commons.httpclient.proxy.ProxyHandler;
+import net.lenni0451.commons.httpclient.proxy.ProxyType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.raphimc.minecraftauth.MinecraftAuth;
@@ -47,6 +49,8 @@ public class Request {
         t(player, Lang.verify_start);
         try {
             HttpClient httpClient = MinecraftAuth.createHttpClient();
+            ProxyHandler proxy = plugin.getProxy();
+            if (proxy != null) httpClient.setProxyHandler(proxy);
             StepFullJavaSession.FullJavaSession session = MinecraftAuth.builder()
                     .withTimeout(plugin.timeout)
                     .withClientId(MicrosoftConstants.JAVA_TITLE_ID).withScope(MicrosoftConstants.SCOPE_TITLE_AUTH)
