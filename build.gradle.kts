@@ -19,7 +19,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
 
     // https://github.com/mcio-dev/MinecraftAuthHeadless
-    implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch1")
+    implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch3")
     implementation("org.jetbrains:annotations:21.0.0")
 
     testImplementation("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")

@@ -2,7 +2,6 @@ package top.mrxiaom.premiumverify;
 
 import net.lenni0451.commons.httpclient.HttpClient;
 import net.lenni0451.commons.httpclient.proxy.ProxyHandler;
-import net.lenni0451.commons.httpclient.proxy.ProxyType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.raphimc.minecraftauth.MinecraftAuth;
@@ -10,7 +9,7 @@ import net.raphimc.minecraftauth.step.java.StepMCProfile;
 import net.raphimc.minecraftauth.step.java.session.StepFullJavaSession;
 import net.raphimc.minecraftauth.step.msa.StepMsaDeviceCode;
 import net.raphimc.minecraftauth.util.MicrosoftConstants;
-import net.raphimc.minecraftauth.util.logging.ILogger;
+import net.raphimc.minecraftauth.util.logging.NOPLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import top.mrxiaom.premiumverify.utils.ColorHelper;
@@ -21,16 +20,6 @@ import java.util.regex.Pattern;
 import static top.mrxiaom.premiumverify.utils.ColorHelper.t;
 
 public class Request {
-    public static class NOPLogger implements ILogger {
-        public static NOPLogger INSTANCE = new NOPLogger();
-        private NOPLogger() {}
-        @Override
-        public void info(String s) {}
-        @Override
-        public void warn(String s) {}
-        @Override
-        public void error(String s) {}
-    }
     final Main plugin;
     final Player player;
     final Thread thread;
