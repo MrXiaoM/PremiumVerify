@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "top.mrxiaom"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.5")
+    compileOnly("me.clip:placeholderapi:2.11.6")
 
     // https://github.com/mcio-dev/MinecraftAuthHeadless
     implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch1")
