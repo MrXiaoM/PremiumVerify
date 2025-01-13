@@ -34,6 +34,13 @@ public class Placeholders extends PlaceholderExpansion {
         if (params.equalsIgnoreCase("fail_times")) {
             return String.valueOf(plugin.data.getPlayerFailTimes(player.getName()));
         }
+        if (params.equalsIgnoreCase("fail_times_limit")) {
+            return String.valueOf(plugin.failTimesLimit);
+        }
+        if (params.equalsIgnoreCase("fail_times_last")) {
+            int failTimes = plugin.data.getPlayerFailTimes(player.getName());
+            return String.valueOf(Math.max(0, plugin.failTimesLimit - failTimes));
+        }
         return null;
     }
 
