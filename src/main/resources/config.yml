@@ -9,6 +9,9 @@ proxy:
   # username: '123456'
   # password: '123456'
 
+# 是否隐藏 IOException (大多是连接超时) 的异常堆栈跟踪日志
+hide-stacktrace: false
+
 # 每个正版账号最多能验证多少次
 # 按正版账号 UUID 来识别
 verify-times-limit: 1

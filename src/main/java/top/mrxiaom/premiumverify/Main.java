@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.premiumverify.utils.PAPI;
 import top.mrxiaom.premiumverify.utils.Util;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.*;
@@ -39,6 +40,7 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
     protected int timeout;
     protected String alreadyVerifiedPermission;
     protected List<String> rewards;
+    private boolean hideStacktrace;
     @Override
     public void onEnable() {
         instance = this;
@@ -115,6 +117,7 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         timeout = config.getInt("timeout", 300);
         alreadyVerifiedPermission = config.getString("already-verified-permission");
         rewards = config.getStringList("rewards");
+        hideStacktrace = config.getBoolean("hide-stacktrace", false);
 
         Lang.reload(config.getConfigurationSection("messages"));
 
@@ -133,6 +136,10 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
         warn(t, true);
     }
     public void warn(Throwable t, boolean withCause) {
+        if (hideStacktrace && t instanceof IOException) {
+            getLogger().warning(t.toString());
+            return;
+        }
         StringWriter sw = new StringWriter();
         try (PrintWriter pw = new PrintWriter(sw)) {
             if (withCause) t.printStackTrace(pw);
