@@ -1,5 +1,7 @@
 package top.mrxiaom.premiumverify;
 
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
@@ -41,6 +43,15 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
     protected String alreadyVerifiedPermission;
     protected List<String> rewards;
     private boolean hideStacktrace;
+    private final FoliaLib foliaLib;
+    public Main() {
+        foliaLib = new FoliaLib(this);
+    }
+
+    public PlatformScheduler getScheduler() {
+        return foliaLib.getScheduler();
+    }
+
     @Override
     public void onEnable() {
         instance = this;
@@ -78,6 +89,7 @@ public class Main extends JavaPlugin implements Listener, TabCompleter {
             request.cancel();
         }
         players.clear();
+        foliaLib.getScheduler().cancelAllTasks();
     }
 
     @Nullable

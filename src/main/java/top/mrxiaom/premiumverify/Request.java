@@ -97,7 +97,7 @@ public class Request {
             }
             plugin.players.remove(player.getName());
             plugin.data.markPlayerVerified(name, uuid);
-            Bukkit.getScheduler().runTask(plugin, () -> Util.runCommands(player, plugin.rewards));
+            plugin.getScheduler().runNextTick((t) -> Util.runCommands(player, plugin.rewards));
         } catch (Throwable e) {
             boolean withCause = true;
             plugin.players.remove(player.getName());

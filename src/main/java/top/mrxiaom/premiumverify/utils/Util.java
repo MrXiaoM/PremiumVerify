@@ -43,8 +43,7 @@ public class Util {
                 int index = i + 1;
                 long delay = parseLong(removePrefix(s, "[delay]").trim()).orElse(0L);
                 if (delay > 0 && index < commands.size()) {
-                    Bukkit.getScheduler().runTaskLater(
-                            Main.getInstance(),
+                    Main.getInstance().getScheduler().runLater(
                             () -> runCommands(player, commands, index),
                             delay
                     );

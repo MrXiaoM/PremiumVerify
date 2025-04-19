@@ -20,7 +20,8 @@ dependencies {
 
     // https://github.com/mcio-dev/MinecraftAuthHeadless
     implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch3")
-    implementation("org.jetbrains:annotations:21.0.0")
+    implementation("com.github.technicallycoded:FoliaLib:0.4.4")
+    implementation("org.jetbrains:annotations:24.0.0")
 
     testImplementation("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
@@ -44,10 +45,11 @@ tasks {
             "org.intellij.lang.annotations" to "annotations.intellij",
             "org.jetbrains.annotations" to "annotations.jetbrains",
             "net.raphimc.minecraftauth" to "auth",
+            "com.google.gson" to "gson", // minecraft auth
+            "io.jsonwebtoken" to "jsonwebtoken", // minecraft auth
             "com.google.errorprone.annotations" to "annotations.google",
-            "com.google.gson" to "gson",
-            "io.jsonwebtoken" to "jsonwebtoken",
             "net.lenni0451.commons.httpclient" to "httpclient",
+            "com.tcoded.folialib" to "folialib",
         ).forEach { (original, target) ->
             relocate(original, "top.mrxiaom.premiumverify.utils.$target")
         }
