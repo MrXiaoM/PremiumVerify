@@ -9,9 +9,8 @@ version = "1.0.8"
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.helpch.at/releases/")
     maven("https://jitpack.io/")
-    maven("https://oss.sonatype.org/content/groups/public/")
 }
 
 dependencies {
@@ -19,7 +18,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
 
     // https://github.com/mcio-dev/MinecraftAuthHeadless
-    implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.0-patch3")
+    implementation("com.github.mcio-dev:MinecraftAuthHeadless:v4.1.2-patch1")
     implementation("com.github.technicallycoded:FoliaLib:0.4.4")
     implementation("org.jetbrains:annotations:24.0.0")
 
